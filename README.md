@@ -10,52 +10,15 @@ INFOS_PARALLELISATION_CLUSTER.sh  = lignes de commandes en debut de script utili
 
 INSTALL_TOOLS.sh  = Installation des outils utilise lors de mon stage
 
-NETTOYAGE_to_ORTHOFINDER/
+NETTOYAGE_to_ORTHOFINDER/ contient le script ALL.sh qui s'execute sur le cluster HPC PCIA de l’UAR 2700 2AD.
+ALL.sh permet de creer des scripts dynamiquement pour telecharger des échantillons ILLUMINA de la base de donnée SRA du NCBI, permet de nettoyer les données ILLUMINA, et d'assembler des données ILLUMINA et NANOPORE
+de faire une recherche de CDS dans les transcriptomes, puis lancer OrthoFInder. ALL.sh lance ensuite ces scripts sur le cluster, en parallelisant chaque jeux de données.
 
-  ALL.sh
+Tout les commentaires necessaire sont dans ALL.sh pour executer le script. Chaque script genere dynamiquement peut etre lancé independament si l'on modifie #SBATCH --partition=${partition_type} ainsi que $liste_nom_base
   
-  ASSEMBLAGE_ILLUMINA.sh
+ORTHOGROUPS_to_ORTHOLOGUES/ contient les scripts utilisés pour le masquing monophyly des orthogroupes , permettant de générer des clusters d'orthologues
+1_fabrication_liste.sh a été utilisé car le nombre d'orthogroupe etait très important, alors j'ai créer 100 listes d'orthogroupe grace à ce script, puis le script 2_PRUNED_SCRIPT.sh executer "Treeprune" de maniere paralleliser sur les 100 jeux de données d'orthogroupes.
   
-  ASSEMBLAGE_NANOPORE.sh
-  
-  CDS.sh
-  
-  NETTOYAGE_ILLUMINA.sh
-  
-  NETTOYAGE_SRA.sh
-  
-  ORTHOLOGS_PHYLOGENIE.sh
-  
-  QUALITE_illumina_non_nettoyee.sh
-  
-  QUALITE_nettoyee.sh
-  
-  QUALITE_sra_non_nettoyee.sh
-  
-  SRA_TO_FASTQ.sh
-  
-  TELECHARGE_SRA.sh
-  
-  
-ORTHOGROUPS_to_ORTHOLOGUES/
-
-  1_fabrication_liste.sh
-  
-  2_PRUNED_SCRIPT.sh
-  
-ORTHOLOGUES_to_PHYLOGENIE/
-
-  1_fabrication_liste.sh
-  
-  2_PRUNED_SCRIPT.sh
+ORTHOLOGUES_to_PHYLOGENIE/ contient le code permettant de faire des alignements de séquences multiples sur l'ensemble des données.
 
 
-TRANSCRIPTOMES_qualite/Courbes_de_rarefaction/
-
-  20240731script_tirage_V2_fonction_tirage (copie).sh
-  
-  fastqtotsv.awk
-  
-  selection_tirage_pile.awk
-  
-  tsvtofastq.awk
